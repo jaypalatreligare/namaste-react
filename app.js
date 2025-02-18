@@ -1,7 +1,9 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
 const heading = React.createElement(
   "h1",
   { id: "heading" },
-  "Hello World From React!"
+  "Hello World From React!  dddddd"
 );
 console.log(heading); ///  will return object "heading" is React element or Javascript Object
 const root = ReactDOM.createRoot(document.getElementById("root"));
