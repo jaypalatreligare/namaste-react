@@ -68,3 +68,4 @@ dist - this folder containig build files
 
 file wathcing algorithim - written in c++
 
+https://browserslist.dev/

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "react learning",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"parcel index.html",
+    "build": "parcel build index.html"
   },
   "keywords": [
     "namaste-react"
@@ -20,6 +22,7 @@
   },
   "browserslist": [
     "last 2 Chrome version",
-    "last 2 Firefox version"
+    "last 2 Firefox version",
+    "last 2 versions"
   ]
 }
