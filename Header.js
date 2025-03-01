@@ -1,5 +1,5 @@
 import React from "react";
-const Header = () => {
+export const Header = () => {
   return (
     <div className="header">
       <div className="logo-container">

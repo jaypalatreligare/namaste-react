@@ -34,3 +34,7 @@
     flex-wrap: wrap;
    
 }
+.filter-button{
+  margin:10px;
+  cursor: pointer;
+}
