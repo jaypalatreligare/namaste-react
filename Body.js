@@ -1,113 +1,71 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 
 const Body = () => {
-  const [ratingValue, setRatingValue] = useState("");
+  console.log("Body Component Called");
 
-  let recipesAll = [
-    {
-      id: 1,
-      name: "Classic Margherita Pizza",
-      cuisine: "Italian",
-      caloriesPerServing: 300,
-      image: "https://cdn.dummyjson.com/recipe-images/1.webp",
-      rating: 3,
-      reviewCount: 98,
-    },
-    {
-      id: 2,
-      name: "Spicy Thai Noodles",
-      cuisine: "Thai",
-      caloriesPerServing: 400,
-      image: "https://cdn.dummyjson.com/recipe-images/2.webp",
-      rating: 2,
-      reviewCount: 120,
-    },
-    {
-      id: 3,
-      name: "Cheeseburger",
-      cuisine: "American",
-      caloriesPerServing: 550,
-      image: "https://cdn.dummyjson.com/recipe-images/3.webp",
-      rating: 4.2, // Lower rating (Won't be included in top-rated filter)
-      reviewCount: 80,
-    },
-    {
-      id: 4,
-      name: "Sushi Rolls",
-      cuisine: "Japanese",
-      caloriesPerServing: 250,
-      image: "https://cdn.dummyjson.com/recipe-images/4.webp",
-      rating: 4.9,
-      reviewCount: 150,
-    },
-  ];
+  // State for fetched product data
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [ratingValue, setRatingValue] = useState("0"); // Default "All"
 
-  let [recipes, setRecipes] = useState([
-    {
-      id: 1,
-      name: "Classic Margherita Pizza",
-      cuisine: "Italian",
-      caloriesPerServing: 300,
-      image: "https://cdn.dummyjson.com/recipe-images/1.webp",
-      rating: 3,
-      reviewCount: 98,
-    },
-    {
-      id: 2,
-      name: "Spicy Thai Noodles",
-      cuisine: "Thai",
-      caloriesPerServing: 400,
-      image: "https://cdn.dummyjson.com/recipe-images/2.webp",
-      rating: 2,
-      reviewCount: 120,
-    },
-    {
-      id: 3,
-      name: "Cheeseburger",
-      cuisine: "American",
-      caloriesPerServing: 550,
-      image: "https://cdn.dummyjson.com/recipe-images/3.webp",
-      rating: 4.2, // Lower rating (Won't be included in top-rated filter)
-      reviewCount: 80,
-    },
-    {
-      id: 4,
-      name: "Sushi Rolls",
-      cuisine: "Japanese",
-      caloriesPerServing: 250,
-      image: "https://cdn.dummyjson.com/recipe-images/4.webp",
-      rating: 4.9,
-      reviewCount: 150,
-    },
-  ]);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  // Fetch data from API
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://dummyjson.com/products");
+      const json = await response.json();
+      console.log("Fetched Data:", json.products);
+      setProducts(json.products); // Store API products
+      setFilteredProducts(json.products); // Initial list
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Handle filtering based on rating
   const handleFilter = () => {
-    let filteredRecipes = recipesAll.filter((res) => res.rating > ratingValue);
-    setRecipes(filteredRecipes);
-    console.log("recipes-------", recipes);
+    console.log("Filtering with Rating:", ratingValue);
+    if (ratingValue === "0") {
+      setFilteredProducts(products); // Show all if "All" is selected
+    } else {
+      let filtered = products.filter((product) => product.rating >= parseFloat(ratingValue));
+      setFilteredProducts(filtered);
+    }
   };
 
   return (
     <div className="body">
+      {/* Rating Filter Section */}
       <div className="search">
-        <input
-          type="text"
-          onChange={(e) => {
-            setRatingValue(e.target.value);
-          }}
+        <label>Select Rating: </label>
+        <select
+          onChange={(e) => setRatingValue(e.target.value)}
           value={ratingValue}
-        />
+        >
+          <option value="0">All</option>
+          <option value="1">1+</option>
+          <option value="2">2+</option>
+          <option value="3">3+</option>
+          <option value="4">4+</option>
+        </select>
         <button className="filter-button" onClick={handleFilter}>
-          {" "}
-          Top Rated{" "}
+          Filter Top Rated
         </button>
       </div>
+
+      {/* Product Listing */}
       <div className="res-container">
-        {/*  <RestaurantCard  resData = {dataObj.recipes[0]}/> */}
-        {recipes.map((recipe) => (
-          <RestaurantCard key={recipe?.id} resData={recipe} />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <RestaurantCard key={product.id} resData={product} />
+          ))
+        ) : (
+          <p>No products found with this rating.</p>
+        )}
       </div>
     </div>
   );
