@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
+import Loading from "./Loading";
 
 const Body = () => {
   console.log("Body Component Called");
@@ -16,11 +17,11 @@ const Body = () => {
   // Fetch data from API
   const fetchData = async () => {
     try {
-      const response = await fetch("https://dummyjson.com/products");
+      const response = await fetch("https://dummyjson.com/products?limit=100");
       const json = await response.json();
       console.log("Fetched Data:", json.products);
       setProducts(json.products); // Store API products
-      setFilteredProducts(json.products); // Initial list
+      setFilteredProducts(json?.products); // Initial list
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -37,6 +38,9 @@ const Body = () => {
     }
   };
 
+  if(filteredProducts.length === 0){
+    return <Loading /> 
+  }
   return (
     <div className="body">
       {/* Rating Filter Section */}
