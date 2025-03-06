@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
-import Loading from "./Loading";
+import RestaurantCard from "../components/RestaurantCard";
+import Loading from "../components/Loading";
 
 const Body = () => {
   console.log("Body Component Called");
@@ -9,6 +9,8 @@ const Body = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [ratingValue, setRatingValue] = useState("0"); // Default "All"
+  const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
     fetchData();
@@ -21,9 +23,11 @@ const Body = () => {
       const json = await response.json();
       console.log("Fetched Data:", json.products);
       setProducts(json.products); // Store API products
-      setFilteredProducts(json?.products); // Initial list
+      setFilteredProducts(json.products); // Initial list
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false); // Ensure loading stops after fetching
     }
   };
 
@@ -33,18 +37,41 @@ const Body = () => {
     if (ratingValue === "0") {
       setFilteredProducts(products); // Show all if "All" is selected
     } else {
-      let filtered = products.filter((product) => product.rating >= parseFloat(ratingValue));
+      let filtered = products.filter(
+        (product) => product.rating >= parseFloat(ratingValue)
+      );
       setFilteredProducts(filtered);
     }
   };
 
-  if(filteredProducts.length === 0){
-    return <Loading /> 
+  // Handle search functionality
+  const handleSearch = () => {
+    console.log("Searching for:", searchText);
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
+  // ✅ Show loading while fetching data
+  if (loading) {
+    return <Loading />;
   }
+
   return (
     <div className="body">
       {/* Rating Filter Section */}
       <div className="search">
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Search products..."
+        />
+        <button className="filter-button" onClick={handleSearch}>
+          Search
+        </button>
+
         <label>Select Rating: </label>
         <select
           onChange={(e) => setRatingValue(e.target.value)}
@@ -68,7 +95,9 @@ const Body = () => {
             <RestaurantCard key={product.id} resData={product} />
           ))
         ) : (
-          <p>No products found with this rating.</p>
+          <p className="text-center text-gray-500 font-semibold">
+            No products found.
+          </p>
         )}
       </div>
     </div>
