@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import AboutUs from "./components/About"; // ✅ Ensure AboutUs is imported
 import Contactus from "./components/Contactus";
+import ErrorPage from "./components/Error";
 
 const AppLayout = () => {
   return (
@@ -20,6 +21,7 @@ const AppLayout = () => {
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <ErrorPage />
   },
   {
     path: "/about",
