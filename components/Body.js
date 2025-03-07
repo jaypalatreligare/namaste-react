@@ -71,21 +71,22 @@ const Body = () => {
         <button className="filter-button" onClick={handleSearch}>
           Search
         </button>
-
-        <label>Select Rating: </label>
-        <select
-          onChange={(e) => setRatingValue(e.target.value)}
-          value={ratingValue}
-        >
-          <option value="0">All</option>
-          <option value="1">1+</option>
-          <option value="2">2+</option>
-          <option value="3">3+</option>
-          <option value="4">4+</option>
-        </select>
-        <button className="filter-button" onClick={handleFilter}>
-          Filter Top Rated
-        </button>
+        <div className="">
+          <label>Select Rating: </label>
+          <select
+            onChange={(e) => setRatingValue(e.target.value)}
+            value={ratingValue}
+          >
+            <option value="0">All</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
+          <button className="filter-button" onClick={handleFilter}>
+            Filter Top Rated
+          </button>
+        </div>
       </div>
 
       {/* Product Listing */}

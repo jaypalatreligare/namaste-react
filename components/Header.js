@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
+console.log("Header Render");
+  useEffect(() => {
+    console.log("useEffect Called");
+  },[btnNameReact]);
   return (
     <div className="header">
       <div className="logo-container">
