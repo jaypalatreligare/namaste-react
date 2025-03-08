@@ -1,11 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
-console.log("Header Render");
+  console.log("Header Render");
   useEffect(() => {
     console.log("useEffect Called");
-  },[btnNameReact]);
+  }, [btnNameReact]);
   return (
     <div className="header">
       <div className="logo-container">
@@ -18,10 +19,18 @@ console.log("Header Render");
       </div>
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/contactus">Contact Us</Link>
+          </li>
+          <li>
+            <Link to="/">Cart</Link>
+          </li>
           <button
             className="login"
             onClick={() => {
