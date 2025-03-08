@@ -6,6 +6,7 @@ import Body from "./components/Body";
 import AboutUs from "./components/About"; // ✅ Ensure AboutUs is imported
 import Contactus from "./components/Contactus";
 import ErrorPage from "./components/Error";
+import ProductDetail from "./components/ProductDetail";
 
 const AppLayout = () => {
   return (
@@ -34,6 +35,10 @@ const AppLayout = () => {
       {
         path: "/contactus",
         element: <Contactus />
+      },
+      {
+        path: "/product/:productId",
+        element: <ProductDetail />
       },
     ],
     errorElement: <ErrorPage />
