@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "../components/RestaurantCard";
 import Loading from "../components/Loading";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   console.log("Body Component Called");
@@ -93,7 +94,7 @@ const Body = () => {
       <div className="res-container">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-            <RestaurantCard key={product.id} resData={product} />
+           <Link key={product.id} to={"/product/"+product.id}> <RestaurantCard  resData={product} /></Link>
           ))
         ) : (
           <p className="text-center text-gray-500 font-semibold">

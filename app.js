@@ -7,6 +7,8 @@ import AboutUs from "./components/About"; // ✅ Ensure AboutUs is imported
 import Contactus from "./components/Contactus";
 import ErrorPage from "./components/Error";
 import ProductDetail from "./components/ProductDetail";
+import TabForm from "./components/TabForm/TabForm";
+import OtpInput from "./components/OtpInput";
 
 const AppLayout = () => {
   return (
@@ -39,6 +41,14 @@ const AppLayout = () => {
       {
         path: "/product/:productId",
         element: <ProductDetail />
+      },
+      {
+        path: "/tabform",
+        element: <TabForm />
+      },
+      {
+        path: "/otpinput",
+        element: <OtpInput />
       },
     ],
     errorElement: <ErrorPage />

@@ -42,3 +42,29 @@
   padding: 0 25px;
   cursor: pointer;
 }
+.heading-container {
+  display: flex;
+}
+.heading{
+  padding: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.tab-body{
+  display: flex;
+  border: 1px solid black;
+  padding: 5px;
+  height: 200px;
+}
+.error{
+  color: red;
+  display: block;
+  font-size: small;
+}
+
+.otp-input{
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  text-align: center;
+}
