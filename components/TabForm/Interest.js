@@ -47,7 +47,7 @@ const Interest = ({ data, setData,errors }) => {
           Music
         </label>
         {
-          errors.interest && <span className="error">{errors.interest}</span>
+          errors.interests && <span className="error">{errors.interests}</span>
         }
       </div>
     </div>
