@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
+  const onlineStatus = useOnlineStatus();
   console.log("Header Render");
   useEffect(() => {
     console.log("useEffect Called");
@@ -19,6 +21,9 @@ export const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
+        <li>
+           Online Status {onlineStatus ? "Online" : "Offline"}
+          </li>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -27,6 +32,9 @@ export const Header = () => {
           </li>
           <li>
             <Link to="/contactus">Contact Us</Link>
+          </li>
+          <li>
+            <Link to="/grocery">Grocery</Link>
           </li>
           
           <li>

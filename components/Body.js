@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "../components/RestaurantCard";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   console.log("Body Component Called");
@@ -54,6 +55,14 @@ const Body = () => {
     setFilteredProducts(filtered);
   };
 
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false) {
+    return (
+      <h1>Look like you are offline please check your internet connection</h1>
+    );
+  }
+
   // ✅ Show loading while fetching data
   if (loading) {
     return <Loading />;
@@ -94,7 +103,10 @@ const Body = () => {
       <div className="res-container">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-           <Link key={product.id} to={"/product/"+product.id}> <RestaurantCard  resData={product} /></Link>
+            <Link key={product.id} to={"/product/" + product.id}>
+              {" "}
+              <RestaurantCard resData={product} />
+            </Link>
           ))
         ) : (
           <p className="text-center text-gray-500 font-semibold">

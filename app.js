@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy,Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"; // ✅ Correct import
 import Header from "./components/Header";
@@ -9,6 +9,10 @@ import ErrorPage from "./components/Error";
 import ProductDetail from "./components/ProductDetail";
 import TabForm from "./components/TabForm/TabForm";
 import OtpInput from "./components/OtpInput";
+import NestedCheckbox from "./components/NestedCheckbox";
+//import Grocery from "./components/Grocery";
+
+const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   return (
@@ -49,6 +53,14 @@ const AppLayout = () => {
       {
         path: "/otpinput",
         element: <OtpInput />
+      },
+      {
+        path: "/nestedcheckbox",
+        element: <NestedCheckbox />
+      },
+      {
+        path: "/grocery",
+        element: <Suspense fallback={<h1>Loading.....</h1>}><Grocery /></Suspense>
       },
     ],
     errorElement: <ErrorPage />
